@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SESAME Maths — Cours Complet</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f14;--surface:#151921;--surface2:#1c2230;--surface3:#232a38;--border:#2a3244;--text:#e8eaf0;--text2:#9aa3b8;--text3:#6b7590;--accent:#e17055;--accent2:#fab1a0;--green:#00cec9;--green2:#55efc4;--red:#ff6b6b;--orange:#fdcb6e;--pink:#fd79a8;--blue:#74b9ff;--purple:#a29bfe;--gradient1:linear-gradient(135deg,#e17055,#fab1a0);--gradient2:linear-gradient(135deg,#00cec9,#55efc4);--gradient3:linear-gradient(135deg,#6c5ce7,#a29bfe);--gradient4:linear-gradient(135deg,#fdcb6e,#ffeaa7);--gradient5:linear-gradient(135deg,#74b9ff,#a29bfe);--gradient6:linear-gradient(135deg,#fd79a8,#fab1a0)}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}::selection{background:var(--accent);color:#fff}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,15,20,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.3rem;background:var(--gradient1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links button{background:none;border:1px solid var(--border);color:var(--text2);padding:.35rem .75rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;transition:all .2s}.nav-links button:hover,.nav-links button.active{border-color:var(--accent);color:var(--accent2);background:rgba(225,112,85,.1)}
+.progress-bar{position:fixed;top:60px;left:0;height:3px;z-index:101;background:var(--gradient1);transition:width .3s}
+.hero{min-height:50vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(225,112,85,.12) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(0,206,201,.08) 0%,transparent 50%);animation:hg 8s ease-in-out infinite alternate}@keyframes hg{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(-2%,2%) rotate(3deg)}}
+.hero-content{position:relative;z-index:1;max-width:700px}.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,6vw,4rem);line-height:1.15;margin-bottom:1rem}.hero h1 span{background:var(--gradient1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{color:var(--text2);font-size:1.1rem;margin-bottom:.5rem}
+.hero .stats{display:flex;gap:2rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}.hero .stat{text-align:center}.hero .stat-num{font-family:'DM Serif Display',serif;font-size:2rem;background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero .stat-label{font-size:.8rem;color:var(--text3)}
+.freq-section{max-width:900px;margin:0 auto 4rem;padding:0 2rem}.freq-title{font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:1.5rem;text-align:center}.freq-grid{display:flex;flex-direction:column;gap:.6rem}
+.freq-row{display:grid;grid-template-columns:50px 1fr 100px 60px;align-items:center;gap:1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem 1.2rem;transition:all .3s}.freq-row:hover{border-color:var(--accent);transform:translateX(4px)}.freq-rank{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text3)}.freq-topic{font-weight:600}.freq-bar-wrap{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}.freq-bar{height:100%;border-radius:3px}.freq-pct{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent2);text-align:right}
+.section{display:none;max-width:900px;margin:0 auto;padding:2rem 2rem 6rem;animation:fadeIn .5s ease}.section.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.section-header{margin-bottom:3rem;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:16px;position:relative;overflow:hidden}.section-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.section-header.b1::before{background:var(--gradient1)}.section-header.b2::before{background:var(--gradient2)}.section-header.b3::before{background:var(--gradient3)}.section-header.b4::before{background:var(--gradient4)}.section-header.b5::before{background:var(--gradient5)}.section-header.b6::before{background:var(--gradient6)}
+.section-header .bloc-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin-bottom:.5rem}.section-header h2{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:.5rem}.section-header p{color:var(--text2)}
+.section-header .weight{display:inline-block;margin-top:.75rem;padding:.3rem .8rem;border-radius:20px;font-size:.8rem;font-weight:600}
+.section-header.b1 .weight{background:rgba(225,112,85,.2);color:var(--accent2)}.section-header.b2 .weight{background:rgba(0,206,201,.2);color:var(--green2)}.section-header.b3 .weight{background:rgba(108,92,231,.2);color:var(--purple)}.section-header.b4 .weight{background:rgba(253,203,110,.2);color:var(--orange)}.section-header.b5 .weight{background:rgba(116,185,255,.2);color:var(--blue)}.section-header.b6 .weight{background:rgba(253,121,168,.2);color:var(--pink)}
+.lesson{margin-bottom:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}.lesson-head{padding:1.2rem 1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s}.lesson-head:hover{background:var(--surface2)}.lesson-head h3{font-family:'DM Serif Display',serif;font-size:1.25rem}.lesson-head .arrow{font-size:1.2rem;transition:transform .3s;color:var(--text3)}.lesson.open .lesson-head .arrow{transform:rotate(180deg)}.lesson-body{display:none;padding:0 1.5rem 1.5rem}.lesson.open .lesson-body{display:block;animation:fadeIn .3s}
+h4{font-family:'DM Serif Display',serif;font-size:1.1rem;margin:1.5rem 0 .75rem;color:var(--accent2)}p{margin-bottom:.75rem}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--surface3);padding:.6rem 1rem;border-radius:8px;border-left:3px solid var(--accent);margin:.75rem 0;font-size:.9rem;color:var(--green2)}
+.tbl-wrap{overflow-x:auto;margin:.75rem 0}table{width:100%;border-collapse:collapse;font-size:.88rem}th{text-align:left;padding:.6rem .8rem;background:var(--surface3);border-bottom:2px solid var(--accent);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent2)}td{padding:.55rem .8rem;border-bottom:1px solid var(--border)}tr:hover td{background:rgba(225,112,85,.05)}
+.trap{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}.trap-title{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+.tip{background:rgba(0,206,201,.08);border:1px solid rgba(0,206,201,.25);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}.tip-title{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+.key-rule{background:rgba(225,112,85,.1);border:1px solid rgba(225,112,85,.3);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0;border-left:4px solid var(--accent)}.key-rule strong{color:var(--accent2)}
+.ex{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text);background:var(--surface3);padding:.4rem .7rem;border-radius:5px;display:inline-block;margin:.2rem 0}.ex em{font-style:normal;color:var(--green2);font-weight:600}.ex .err{color:var(--red);text-decoration:line-through}
+.quiz-box{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1.5rem 0}.quiz-box h4{color:var(--orange);margin-top:0}
+.quiz-q{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}.quiz-q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.quiz-q p{font-weight:600;margin-bottom:.5rem}.quiz-q .options{display:flex;flex-wrap:wrap;gap:.5rem}
+.quiz-q .opt{padding:.4rem .9rem;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace}.quiz-q .opt:hover{border-color:var(--accent)}.quiz-q .opt.correct{border-color:var(--green);background:rgba(0,206,201,.15);color:var(--green2)}.quiz-q .opt.wrong{border-color:var(--red);background:rgba(255,107,107,.15);color:var(--red)}.quiz-q .opt.disabled{pointer-events:none;opacity:.6}
+.quiz-q .explanation{margin-top:.5rem;font-size:.85rem;color:var(--text2);display:none;padding:.5rem .7rem;background:var(--surface3);border-radius:6px}
+.nav-buttons{display:flex;justify-content:space-between;margin-top:3rem;gap:1rem}.nav-btn{padding:.8rem 1.5rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;transition:all .3s}.nav-btn:hover{border-color:var(--accent);background:var(--surface2)}.nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.nav-btn.primary:hover{background:var(--accent2)}
+@media(max-width:700px){.nav{padding:0 1rem}.nav-links button{font-size:.65rem;padding:.25rem .5rem}.hero{padding:6rem 1rem 3rem}.section{padding:1rem 1rem 4rem}.freq-row{grid-template-columns:40px 1fr 80px 50px;font-size:.85rem}.lesson-head h3{font-size:1.05rem}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<div class="nav-logo">SESAME Maths</div>
+<div class="nav-links">
+<button onclick="showSection('home')" class="active" id="nav-home">Accueil</button>
+<button onclick="showSection('bloc1')" id="nav-bloc1">Bloc 1</button>
+<button onclick="showSection('bloc2')" id="nav-bloc2">Bloc 2</button>
+<button onclick="showSection('bloc3')" id="nav-bloc3">Bloc 3</button>
+<button onclick="showSection('bloc4')" id="nav-bloc4">Bloc 4</button>
+<button onclick="showSection('bloc5')" id="nav-bloc5">Bloc 5</button>
+<button onclick="showSection('bloc6')" id="nav-bloc6">Bloc 6</button>
+</div>
+</nav>
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+<div class="hero">
+<div class="hero-content">
+<h1>Maîtrise les maths <span>SESAME</span></h1>
+<p>20 exercices · 40 minutes · 0 point négatif · 2 min/exercice</p>
+<p style="color:var(--text3);font-size:.9rem">Calculatrice intégrée fournie · Accessible à tous les profils, toutes spécialités</p>
+<div class="stats">
+<div class="stat"><div class="stat-num">6</div><div class="stat-label">Blocs stratégiques</div></div>
+<div class="stat"><div class="stat-num">15</div><div class="stat-label">Pièges identifiés</div></div>
+<div class="stat"><div class="stat-num">40+</div><div class="stat-label">Exercices type</div></div>
+</div>
+</div>
+</div>
+<div class="freq-section">
+<h3 class="freq-title">Fréquence réelle au concours — par analyse des annales</h3>
+<div class="freq-grid">
+<div class="freq-row"><span class="freq-rank">#1</span><span class="freq-topic">Pourcentages & Proportionnalité</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:95%;background:var(--gradient1)"></div></div><span class="freq-pct">~25%</span></div>
+<div class="freq-row"><span class="freq-rank">#2</span><span class="freq-topic">Équations, Systèmes & Calcul littéral</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:80%;background:var(--gradient2)"></div></div><span class="freq-pct">~20%</span></div>
+<div class="freq-row"><span class="freq-rank">#3</span><span class="freq-topic">Probabilités & Dénombrement</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:65%;background:var(--gradient3)"></div></div><span class="freq-pct">~18%</span></div>
+<div class="freq-row"><span class="freq-rank">#4</span><span class="freq-topic">Arithmétique, Puissances & Fractions</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:55%;background:var(--gradient4)"></div></div><span class="freq-pct">~15%</span></div>
+<div class="freq-row"><span class="freq-rank">#5</span><span class="freq-topic">Fonctions & Études de fonctions</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:40%;background:var(--gradient5)"></div></div><span class="freq-pct">~12%</span></div>
+<div class="freq-row"><span class="freq-rank">#6</span><span class="freq-topic">Géométrie, Statistiques & Divers</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:25%;background:var(--gradient6)"></div></div><span class="freq-pct">~10%</span></div>
+</div>
+<p style="text-align:center;color:var(--text3);font-size:.8rem;margin-top:1rem">Source : analyse des annales 2019-2025 et programmes officiels SESAME</p>
+</div>
+</div>
+
+<!-- ═══════════ BLOC 1 — POURCENTAGES & PROPORTIONNALITÉ ═══════════ -->
+<div class="section" id="sec-bloc1">
+<div class="section-header b1">
+<div class="bloc-num">Bloc 1 — Priorité maximale</div>
+<h2>Pourcentages & Proportionnalité</h2>
+<p>Présent dans CHAQUE sujet. C'est le thème n°1 en fréquence. Maîtrise-le et tu sécurises 5 points minimum.</p>
+<span class="weight">~25% des exercices</span>
+</div>
+
+<div class="lesson" id="l1-1"><div class="lesson-head" onclick="toggleLesson('l1-1')"><h3>1.1 Pourcentages — Les formules essentielles</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Calculer un pourcentage</h4>
+<div class="formula">Pourcentage = (Partie / Total) × 100</div>
+<p><span class="ex">15 élèves sur 60 ont eu la moyenne → (15/60) × 100 = <em>25%</em></span></p>
+
+<h4>Appliquer un pourcentage</h4>
+<div class="formula">Montant = Total × (Pourcentage / 100)</div>
+<p><span class="ex">30% de 250 → 250 × 0.30 = <em>75</em></span></p>
+
+<h4>Augmentation en pourcentage</h4>
+<div class="formula">Nouveau = Ancien × (1 + t/100) → Coefficient multiplicateur = 1 + t/100</div>
+<p><span class="ex">Augmentation de 20% sur 150€ → 150 × 1.20 = <em>180€</em></span></p>
+
+<h4>Diminution en pourcentage</h4>
+<div class="formula">Nouveau = Ancien × (1 − t/100) → Coefficient multiplicateur = 1 − t/100</div>
+<p><span class="ex">Réduction de 15% sur 200€ → 200 × 0.85 = <em>170€</em></span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°1 — AUGMENTATION PUIS DIMINUTION ≠ RETOUR AU DÉPART</div>
+<p>+20% puis -20% ≠ prix initial !</p>
+<p><span class="ex">100€ → +20% → 120€ → -20% → 120 × 0.80 = <em>96€</em> (pas 100€!)</span></p>
+<p>On multiplie les coefficients : 1.20 × 0.80 = <strong>0.96</strong> → perte de 4%</p>
+</div>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°2 — RETROUVER LE PRIX INITIAL</div>
+<p>Si après une hausse de 25% le prix est 150€, le prix initial n'est PAS 150 − 25% de 150.</p>
+<p><span class="ex">Prix initial = 150 / 1.25 = <em>120€</em></span></p>
+<p>Règle : on <strong>divise</strong> par le coefficient multiplicateur pour retrouver l'original.</p>
+</div>
+
+<h4>Taux d'évolution</h4>
+<div class="formula">Taux = (Valeur finale − Valeur initiale) / Valeur initiale × 100</div>
+<p><span class="ex">De 80 à 100 → (100-80)/80 × 100 = <em>+25%</em></span></p>
+<p><span class="ex">De 100 à 80 → (80-100)/100 × 100 = <em>-20%</em></span></p>
+
+<div class="tip">
+<div class="tip-title">💡 TECHNIQUE EXPRESS — COEFFICIENT MULTIPLICATEUR</div>
+<p>Apprends à raisonner en <strong>coefficients</strong>, pas en additions/soustractions :</p>
+<p>+10% → ×1.10 | +25% → ×1.25 | +50% → ×1.50 | ×2 → +100%</p>
+<p>−10% → ×0.90 | −25% → ×0.75 | −50% → ×0.50 | −30% → ×0.70</p>
+<p>Enchaînements : on multiplie les coefficients entre eux.</p>
+</div>
+</div></div>
+
+<div class="lesson" id="l1-2"><div class="lesson-head" onclick="toggleLesson('l1-2')"><h3>1.2 Proportionnalité — Produit en croix</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">a/b = c/d → a × d = b × c</div>
+<p>Si 3 kg de pommes coûtent 6€, combien coûtent 5 kg ?</p>
+<p><span class="ex">3/6 = 5/x → x = (5 × 6) / 3 = <em>10€</em></span></p>
+
+<h4>Vitesse, Distance, Temps</h4>
+<div class="formula">D = V × T &nbsp;|&nbsp; V = D / T &nbsp;|&nbsp; T = D / V</div>
+<p><span class="ex">Un train parcourt 300 km en 2h30 → V = 300 / 2.5 = <em>120 km/h</em></span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°3 — CONVERSION DES HEURES/MINUTES</div>
+<p>2h30 = 2.5h (pas 2.3h !)</p>
+<p>45 min = 0.75h | 15 min = 0.25h | 20 min = 1/3 h ≈ 0.333h</p>
+<p>Pour convertir les minutes : diviser par 60, pas par 100.</p>
+</div>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°4 — VITESSE MOYENNE ≠ MOYENNE DES VITESSES</div>
+<p>Aller à 60 km/h, retour à 40 km/h. La vitesse moyenne n'est PAS 50 km/h.</p>
+<div class="formula">V moyenne = Distance totale / Temps total</div>
+<p><span class="ex">Distance = d. Temps aller = d/60, temps retour = d/40</span></p>
+<p><span class="ex">V = 2d / (d/60 + d/40) = 2d / (2d·5/120) = 2 / (10/120) = <em>48 km/h</em></span></p>
+</div>
+
+<h4>Échelles et conversions</h4>
+<p><span class="ex">Échelle 1/500 → 1 cm sur la carte = 500 cm en réalité = 5 m</span></p>
+<p><span class="ex">Échelle 1/25000 → 1 cm = 250 m</span></p>
+</div></div>
+
+<div class="lesson" id="l1-quiz"><div class="lesson-head" onclick="toggleLesson('l1-quiz')"><h3>🧪 Quiz Bloc 1 — Pourcentages & Proportionnalité</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="quiz-box"><h4>Questions type SESAME</h4>
+<div class="quiz-q" data-correct="C"><p>1. Un article à 80€ augmente de 25% puis baisse de 20%. Quel est le prix final ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 80€</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 84€</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 80€</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 76€</span></div><div class="explanation">✅ 80 × 1.25 = 100 → 100 × 0.80 = 80€. Ici c'est 80€ ! Coefficients : 1.25 × 0.80 = 1.00. C'est un cas particulier, ça ne marche pas toujours.</div></div>
+
+<div class="quiz-q" data-correct="B"><p>2. Après une baisse de 20%, un article coûte 160€. Quel était son prix initial ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 192€</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 200€</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 180€</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 210€</span></div><div class="explanation">✅ Prix initial = 160 / 0.80 = 200€. On divise par le coefficient (1 − 0.20 = 0.80), on ne fait PAS 160 + 20%.</div></div>
+
+<div class="quiz-q" data-correct="D"><p>3. Une population passe de 25 000 à 30 000. Quel est le taux d'augmentation ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 5%</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 15%</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 25%</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 20%</span></div><div class="explanation">✅ (30000−25000)/25000 × 100 = 5000/25000 × 100 = 20%</div></div>
+
+<div class="quiz-q" data-correct="A"><p>4. Un train roule à 90 km/h pendant 2h20. Quelle distance parcourt-il ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 210 km</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 207 km</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 198 km</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 180 km</span></div><div class="explanation">✅ 2h20 = 2 + 20/60 = 2 + 1/3 = 7/3 h. D = 90 × 7/3 = 630/3 = 210 km.</div></div>
+</div>
+</div></div>
+
+<div class="nav-buttons"><button class="nav-btn" onclick="showSection('home')">← Accueil</button><button class="nav-btn primary" onclick="showSection('bloc2')">Bloc 2 — Équations →</button></div>
+</div>
+
+<!-- ═══════════ BLOC 2 — ÉQUATIONS & SYSTÈMES ═══════════ -->
+<div class="section" id="sec-bloc2">
+<div class="section-header b2">
+<div class="bloc-num">Bloc 2 — Priorité haute</div>
+<h2>Équations, Systèmes & Calcul littéral</h2>
+<p>Savoir poser et résoudre une équation rapidement est essentiel. Beaucoup d'exercices SESAME sont des problèmes déguisés.</p>
+<span class="weight">~20% des exercices</span>
+</div>
+
+<div class="lesson" id="l2-1"><div class="lesson-head" onclick="toggleLesson('l2-1')"><h3>2.1 Équations du 1er degré</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">ax + b = c → x = (c − b) / a</div>
+<p><span class="ex">3x + 7 = 22 → 3x = 15 → x = <em>5</em></span></p>
+
+<h4>Mise en équation — La clé du concours</h4>
+<p>Au SESAME, la difficulté n'est pas de résoudre l'équation, c'est de la <strong>poser</strong>.</p>
+
+<div class="tip">
+<div class="tip-title">💡 MÉTHODE EN 3 ÉTAPES</div>
+<p><strong>1.</strong> Identifie l'inconnue : "Soit x le nombre cherché"</p>
+<p><strong>2.</strong> Traduis l'énoncé en équation mot par mot</p>
+<p><strong>3.</strong> Résous et vérifie</p>
+</div>
+
+<p><strong>Exemple type SESAME :</strong> "Un père a 3 fois l'âge de son fils. Dans 12 ans, il aura 2 fois son âge. Quel âge a le fils ?"</p>
+<p><span class="ex">Fils = x, Père = 3x</span></p>
+<p><span class="ex">Dans 12 ans : 3x + 12 = 2(x + 12)</span></p>
+<p><span class="ex">3x + 12 = 2x + 24 → x = <em>12 ans</em></span></p>
+</div></div>
+
+<div class="lesson" id="l2-2"><div class="lesson-head" onclick="toggleLesson('l2-2')"><h3>2.2 Systèmes d'équations</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Méthode par substitution</h4>
+<p><span class="ex">x + y = 10 et 2x − y = 5</span></p>
+<p><span class="ex">De (1) : y = 10 − x → dans (2) : 2x − (10−x) = 5 → 3x = 15 → x = <em>5</em>, y = <em>5</em></span></p>
+
+<h4>Méthode par addition</h4>
+<p><span class="ex">x + y = 10 ... (1)</span></p>
+<p><span class="ex">2x − y = 5 ... (2)</span></p>
+<p><span class="ex">(1) + (2) : 3x = 15 → x = 5 → y = 5</span></p>
+
+<div class="tip">
+<div class="tip-title">💡 TECHNIQUE EXPRESS</div>
+<p>Au concours, l'addition est souvent plus rapide. Cherche à éliminer directement une variable en additionnant ou soustrayant les deux équations.</p>
+</div>
+</div></div>
+
+<div class="lesson" id="l2-3"><div class="lesson-head" onclick="toggleLesson('l2-3')"><h3>2.3 Équation du 2nd degré</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">ax² + bx + c = 0 → Δ = b² − 4ac</div>
+<p><strong>Si Δ > 0</strong> → 2 solutions : x = (−b ± √Δ) / 2a</p>
+<p><strong>Si Δ = 0</strong> → 1 solution : x = −b / 2a</p>
+<p><strong>Si Δ < 0</strong> → pas de solution réelle</p>
+
+<p><span class="ex">x² − 5x + 6 = 0 → Δ = 25 − 24 = 1</span></p>
+<p><span class="ex">x = (5 ± 1) / 2 → x = <em>3</em> ou x = <em>2</em></span></p>
+
+<div class="tip">
+<div class="tip-title">💡 ASTUCE — FACTORISATION RAPIDE</div>
+<p>Si c'est un trinôme simple, cherche deux nombres dont le produit = c et la somme = −b :</p>
+<p><span class="ex">x² − 5x + 6 : quels nombres ont un produit de 6 et une somme de 5 ? → <em>2 et 3</em></span></p>
+<p><span class="ex">Donc (x − 2)(x − 3) = 0</span></p>
+</div>
+
+<h4>Identités remarquables (tombent souvent)</h4>
+<div class="formula">(a + b)² = a² + 2ab + b²</div>
+<div class="formula">(a − b)² = a² − 2ab + b²</div>
+<div class="formula">(a + b)(a − b) = a² − b²</div>
+</div></div>
+
+<div class="lesson" id="l2-4"><div class="lesson-head" onclick="toggleLesson('l2-4')"><h3>2.4 Inéquations</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="key-rule">
+<strong>Règle cruciale :</strong> Quand on multiplie ou divise par un nombre <strong>négatif</strong>, on <strong>inverse le sens</strong> de l'inégalité.
+</div>
+<p><span class="ex">−2x > 6 → x < <em>−3</em> (on divise par −2, on inverse)</span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°5 — OUBLI D'INVERSER LE SIGNE</div>
+<p>C'est l'erreur la plus fréquente. Au concours, si tu vois une division par un négatif, pense IMMÉDIATEMENT à inverser ≤ en ≥ (et vice versa).</p>
+</div>
+</div></div>
+
+<div class="nav-buttons"><button class="nav-btn" onclick="showSection('bloc1')">← Bloc 1</button><button class="nav-btn primary" onclick="showSection('bloc3')">Bloc 3 — Probabilités →</button></div>
+</div>
+
+<!-- ═══════════ BLOC 3 — PROBABILITÉS ═══════════ -->
+<div class="section" id="sec-bloc3">
+<div class="section-header b3">
+<div class="bloc-num">Bloc 3 — Très fréquent</div>
+<h2>Probabilités & Dénombrement</h2>
+<p>Les probas sont un classique du concours. Les questions sont souvent accessibles si tu connais les formules de base.</p>
+<span class="weight">~18% des exercices</span>
+</div>
+
+<div class="lesson" id="l3-1"><div class="lesson-head" onclick="toggleLesson('l3-1')"><h3>3.1 Probabilités de base</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">P(A) = Nombre de cas favorables / Nombre de cas possibles</div>
+
+<p><span class="ex">Dé à 6 faces → P(obtenir 3) = 1/6</span></p>
+<p><span class="ex">Carte dans un jeu de 52 → P(as) = 4/52 = <em>1/13</em></span></p>
+
+<h4>Propriétés fondamentales</h4>
+<p>• 0 ≤ P(A) ≤ 1</p>
+<p>• P(contraire de A) = 1 − P(A)</p>
+<p>• P(A ou B) = P(A) + P(B) − P(A et B)</p>
+<p>• Si A et B sont incompatibles : P(A ou B) = P(A) + P(B)</p>
+
+<div class="tip">
+<div class="tip-title">💡 TECHNIQUE — L'ÉVÉNEMENT CONTRAIRE</div>
+<p>Souvent, calculer "au moins un" est plus facile par le contraire :</p>
+<p><strong>P(au moins un) = 1 − P(aucun)</strong></p>
+<p><span class="ex">P(au moins un 6 en lançant 2 dés) = 1 − P(aucun 6) = 1 − (5/6)² = 1 − 25/36 = <em>11/36</em></span></p>
+</div>
+</div></div>
+
+<div class="lesson" id="l3-2"><div class="lesson-head" onclick="toggleLesson('l3-2')"><h3>3.2 Événements indépendants & successifs</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">Si A et B indépendants : P(A ET B) = P(A) × P(B)</div>
+
+<p><span class="ex">Lancer 2 dés → P(deux 6) = 1/6 × 1/6 = <em>1/36</em></span></p>
+<p><span class="ex">Pile 3 fois de suite → (1/2)³ = <em>1/8</em></span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°6 — AVEC OU SANS REMISE</div>
+<p><strong>Avec remise</strong> : les probabilités ne changent pas → événements indépendants</p>
+<p><strong>Sans remise</strong> : les probabilités changent à chaque tirage</p>
+<p><span class="ex">Sac avec 3 rouges et 2 bleues. Tirer 2 rouges SANS remise :</span></p>
+<p><span class="ex">P = 3/5 × 2/4 = 6/20 = <em>3/10</em></span></p>
+<p><span class="ex">AVEC remise : P = 3/5 × 3/5 = <em>9/25</em></span></p>
+</div>
+</div></div>
+
+<div class="lesson" id="l3-3"><div class="lesson-head" onclick="toggleLesson('l3-3')"><h3>3.3 Dénombrement — Arrangements & Combinaisons</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Factorielle</h4>
+<div class="formula">n! = n × (n−1) × (n−2) × ... × 1</div>
+<p><span class="ex">5! = 5 × 4 × 3 × 2 × 1 = <em>120</em></span></p>
+<p><span class="ex">0! = <em>1</em> (par convention)</span></p>
+
+<h4>Arrangements (l'ordre compte)</h4>
+<div class="formula">A(n,k) = n! / (n−k)!</div>
+<p>Combien de codes à 3 chiffres parmi 10 chiffres (sans répétition) ?</p>
+<p><span class="ex">A(10,3) = 10 × 9 × 8 = <em>720</em></span></p>
+
+<h4>Combinaisons (l'ordre ne compte pas)</h4>
+<div class="formula">C(n,k) = n! / [k! × (n−k)!]</div>
+<p>Choisir 3 personnes parmi 10 ?</p>
+<p><span class="ex">C(10,3) = (10 × 9 × 8) / (3 × 2 × 1) = 720/6 = <em>120</em></span></p>
+
+<div class="tip">
+<div class="tip-title">💡 QUAND UTILISER QUOI ?</div>
+<p><strong>L'ordre compte</strong> (code, classement, podium) → <strong>Arrangement</strong></p>
+<p><strong>L'ordre ne compte pas</strong> (équipe, comité, groupe) → <strong>Combinaison</strong></p>
+</div>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°7 — CODE AVEC OU SANS RÉPÉTITION</div>
+<p>Code à 4 chiffres AVEC répétition → 10⁴ = 10 000 possibilités</p>
+<p>Code à 4 chiffres SANS répétition → 10 × 9 × 8 × 7 = 5 040</p>
+<p>Lis bien l'énoncé : "chiffres distincts" = sans répétition</p>
+</div>
+</div></div>
+
+<div class="lesson" id="l3-quiz"><div class="lesson-head" onclick="toggleLesson('l3-quiz')"><h3>🧪 Quiz Bloc 3 — Probabilités</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="quiz-box"><h4>Questions type SESAME</h4>
+<div class="quiz-q" data-correct="C"><p>1. On lance 2 dés. Quelle est la probabilité d'obtenir une somme de 7 ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 1/7</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 7/36</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 6/36 = 1/6</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 5/36</span></div><div class="explanation">✅ Combinaisons donnant 7 : (1,6)(2,5)(3,4)(4,3)(5,2)(6,1) = 6 cas sur 36 = 1/6.</div></div>
+
+<div class="quiz-q" data-correct="B"><p>2. Un sac contient 4 boules rouges et 6 bleues. On tire 2 boules sans remise. P(2 rouges) ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 4/25</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 2/15</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 1/5</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 6/45</span></div><div class="explanation">✅ P = 4/10 × 3/9 = 12/90 = 2/15. Sans remise : après la 1ère boule rouge, il reste 3 rouges sur 9.</div></div>
+
+<div class="quiz-q" data-correct="A"><p>3. Combien de mots de passe à 4 lettres (26 lettres, avec répétition) ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 456 976</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 358 800</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 14 950</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 104</span></div><div class="explanation">✅ Avec répétition : 26⁴ = 26 × 26 × 26 × 26 = 456 976.</div></div>
+</div>
+</div></div>
+
+<div class="nav-buttons"><button class="nav-btn" onclick="showSection('bloc2')">← Bloc 2</button><button class="nav-btn primary" onclick="showSection('bloc4')">Bloc 4 — Arithmétique →</button></div>
+</div>
+
+<!-- ═══════════ BLOC 4 — ARITHMÉTIQUE ═══════════ -->
+<div class="section" id="sec-bloc4">
+<div class="section-header b4">
+<div class="bloc-num">Bloc 4 — Fondamentaux</div>
+<h2>Arithmétique, Puissances & Fractions</h2>
+<p>Les bases du calcul. Beaucoup de candidats perdent des points par manque de réflexes sur les fractions et puissances.</p>
+<span class="weight">~15% des exercices</span>
+</div>
+
+<div class="lesson" id="l4-1"><div class="lesson-head" onclick="toggleLesson('l4-1')"><h3>4.1 Puissances — Règles de calcul</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="tbl-wrap"><table>
+<tr><th>Règle</th><th>Formule</th><th>Exemple</th></tr>
+<tr><td>Produit</td><td>aⁿ × aᵐ = aⁿ⁺ᵐ</td><td>2³ × 2⁴ = 2⁷ = 128</td></tr>
+<tr><td>Quotient</td><td>aⁿ / aᵐ = aⁿ⁻ᵐ</td><td>5⁶ / 5² = 5⁴ = 625</td></tr>
+<tr><td>Puissance de puissance</td><td>(aⁿ)ᵐ = aⁿˣᵐ</td><td>(2³)² = 2⁶ = 64</td></tr>
+<tr><td>Exposant 0</td><td>a⁰ = 1</td><td>7⁰ = 1</td></tr>
+<tr><td>Exposant négatif</td><td>a⁻ⁿ = 1/aⁿ</td><td>2⁻³ = 1/8</td></tr>
+<tr><td>Produit</td><td>(ab)ⁿ = aⁿ × bⁿ</td><td>(3×2)² = 6² = 36</td></tr>
+</table></div>
+
+<h4>Puissances de 10 — Indispensable</h4>
+<p><span class="ex">10³ = 1 000 | 10⁶ = 1 000 000 | 10⁻² = 0.01 | 10⁻³ = 0.001</span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°8 — (−2)² ≠ −2²</div>
+<p><span class="ex">(−2)² = (−2) × (−2) = <em>+4</em></span></p>
+<p><span class="ex">−2² = −(2²) = <em>−4</em></span></p>
+<p>Les parenthèses changent tout !</p>
+</div>
+</div></div>
+
+<div class="lesson" id="l4-2"><div class="lesson-head" onclick="toggleLesson('l4-2')"><h3>4.2 Fractions — Opérations</h3><span class="arrow">▼</span></div><div class="lesson-body">
+
+<div class="tbl-wrap"><table>
+<tr><th>Opération</th><th>Règle</th><th>Exemple</th></tr>
+<tr><td>Addition</td><td>a/b + c/d = (ad + bc) / bd</td><td>1/3 + 1/4 = (4+3)/12 = 7/12</td></tr>
+<tr><td>Soustraction</td><td>a/b − c/d = (ad − bc) / bd</td><td>3/4 − 1/3 = (9−4)/12 = 5/12</td></tr>
+<tr><td>Multiplication</td><td>a/b × c/d = ac / bd</td><td>2/3 × 4/5 = 8/15</td></tr>
+<tr><td>Division</td><td>a/b ÷ c/d = a/b × d/c</td><td>2/3 ÷ 4/5 = 2/3 × 5/4 = 10/12 = 5/6</td></tr>
+</table></div>
+
+<div class="tip">
+<div class="tip-title">💡 FRACTIONS À CONNAÎTRE PAR CŒUR</div>
+<p>1/2 = 0.5 = 50% | 1/3 ≈ 0.333 = 33.3% | 1/4 = 0.25 = 25%</p>
+<p>1/5 = 0.2 = 20% | 1/8 = 0.125 = 12.5% | 1/10 = 0.1 = 10%</p>
+<p>2/3 ≈ 0.667 = 66.7% | 3/4 = 0.75 = 75% | 3/5 = 0.6 = 60%</p>
+</div>
+</div></div>
+
+<div class="lesson" id="l4-3"><div class="lesson-head" onclick="toggleLesson('l4-3')"><h3>4.3 Nombres premiers & Divisibilité</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Nombres premiers à connaître</h4>
+<p><span class="ex">2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47</span></p>
+
+<h4>Critères de divisibilité</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Divisible par</th><th>Critère</th></tr>
+<tr><td>2</td><td>Dernier chiffre pair</td></tr>
+<tr><td>3</td><td>Somme des chiffres divisible par 3</td></tr>
+<tr><td>4</td><td>2 derniers chiffres divisibles par 4</td></tr>
+<tr><td>5</td><td>Se termine par 0 ou 5</td></tr>
+<tr><td>9</td><td>Somme des chiffres divisible par 9</td></tr>
+<tr><td>10</td><td>Se termine par 0</td></tr>
+</table></div>
+
+<h4>PGCD et PPCM</h4>
+<div class="formula">PGCD = plus grand diviseur commun | PPCM = plus petit multiple commun</div>
+<p><span class="ex">PGCD(12, 18) : 12 = 2² × 3 | 18 = 2 × 3² → PGCD = 2 × 3 = <em>6</em></span></p>
+<p><span class="ex">PPCM(12, 18) : prendre les plus grandes puissances → 2² × 3² = <em>36</em></span></p>
+
+<div class="tip">
+<div class="tip-title">💡 RELATION UTILE</div>
+<div class="formula">PGCD(a,b) × PPCM(a,b) = a × b</div>
+<p><span class="ex">PGCD(12,18) × PPCM(12,18) = 6 × 36 = 216 = 12 × 18 ✅</span></p>
+</div>
+</div></div>
+
+<div class="nav-buttons"><button class="nav-btn" onclick="showSection('bloc3')">← Bloc 3</button><button class="nav-btn primary" onclick="showSection('bloc5')">Bloc 5 — Fonctions →</button></div>
+</div>
+
+<!-- ═══════════ BLOC 5 — FONCTIONS ═══════════ -->
+<div class="section" id="sec-bloc5">
+<div class="section-header b5">
+<div class="bloc-num">Bloc 5 — Analyse</div>
+<h2>Fonctions & Études de fonctions</h2>
+<p>Fonctions affines, carrées, variations, et lecture graphique. Les questions restent accessibles si tu connais les bases.</p>
+<span class="weight">~12% des exercices</span>
+</div>
+
+<div class="lesson" id="l5-1"><div class="lesson-head" onclick="toggleLesson('l5-1')"><h3>5.1 Fonctions affines & linéaires</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">f(x) = ax + b</div>
+<p><strong>a</strong> = coefficient directeur (pente) | <strong>b</strong> = ordonnée à l'origine</p>
+
+<h4>Calculer a et b</h4>
+<div class="formula">a = (y₂ − y₁) / (x₂ − x₁)</div>
+<p><span class="ex">Droite passant par A(1, 3) et B(4, 9) → a = (9−3)/(4−1) = 6/3 = <em>2</em></span></p>
+<p><span class="ex">y = 2x + b → avec A(1,3) : 3 = 2(1) + b → b = <em>1</em> → y = 2x + 1</span></p>
+
+<h4>Signe de a et variations</h4>
+<p><strong>a > 0</strong> → fonction croissante (la droite monte)</p>
+<p><strong>a < 0</strong> → fonction décroissante (la droite descend)</p>
+<p><strong>a = 0</strong> → fonction constante (droite horizontale)</p>
+</div></div>
+
+<div class="lesson" id="l5-2"><div class="lesson-head" onclick="toggleLesson('l5-2')"><h3>5.2 Fonction carrée & Parabole</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="formula">f(x) = ax² + bx + c</div>
+
+<h4>Sommet de la parabole</h4>
+<div class="formula">x_sommet = −b / 2a &nbsp;&nbsp;|&nbsp;&nbsp; y_sommet = f(x_sommet)</div>
+
+<p><strong>a > 0</strong> → parabole ouverte vers le haut (minimum au sommet)</p>
+<p><strong>a < 0</strong> → parabole ouverte vers le bas (maximum au sommet)</p>
+
+<p><span class="ex">f(x) = x² − 4x + 3 → sommet : x = 4/2 = 2, y = 4 − 8 + 3 = <em>−1</em></span></p>
+<p>Minimum de f = −1 atteint en x = 2.</p>
+</div></div>
+
+<div class="lesson" id="l5-3"><div class="lesson-head" onclick="toggleLesson('l5-3')"><h3>5.3 Suites arithmétiques & géométriques</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Suite arithmétique (on ajoute toujours la même chose)</h4>
+<div class="formula">uₙ = u₀ + n × r &nbsp;&nbsp;|&nbsp;&nbsp; Somme = n × (u₁ + uₙ) / 2</div>
+<p><span class="ex">u₀ = 3, r = 5 → u₁ = 8, u₂ = 13, u₃ = 18...</span></p>
+<p><span class="ex">u₁₀ = 3 + 10 × 5 = <em>53</em></span></p>
+
+<h4>Suite géométrique (on multiplie toujours par la même chose)</h4>
+<div class="formula">uₙ = u₀ × qⁿ &nbsp;&nbsp;|&nbsp;&nbsp; Somme = u₀ × (1 − qⁿ) / (1 − q)</div>
+<p><span class="ex">u₀ = 2, q = 3 → u₁ = 6, u₂ = 18, u₃ = 54...</span></p>
+<p><span class="ex">u₅ = 2 × 3⁵ = 2 × 243 = <em>486</em></span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°9 — ATTENTION À L'INDICE DE DÉPART</div>
+<p>Si la suite commence à u₁ (pas u₀), les formules s'ajustent :</p>
+<p><span class="ex">uₙ = u₁ + (n−1) × r (arithmétique)</span></p>
+<p><span class="ex">uₙ = u₁ × q^(n−1) (géométrique)</span></p>
+</div>
+</div></div>
+
+<div class="nav-buttons"><button class="nav-btn" onclick="showSection('bloc4')">← Bloc 4</button><button class="nav-btn primary" onclick="showSection('bloc6')">Bloc 6 — Géométrie →</button></div>
+</div>
+
+<!-- ═══════════ BLOC 6 — GÉOMÉTRIE & STATS ═══════════ -->
+<div class="section" id="sec-bloc6">
+<div class="section-header b6">
+<div class="bloc-num">Bloc 6 — Points bonus</div>
+<h2>Géométrie, Statistiques & Divers</h2>
+<p>Formules d'aires/volumes, Pythagore, Thalès, moyennes et médiane. Des points gratuits si tu connais les formules.</p>
+<span class="weight">~10% des exercices</span>
+</div>
+
+<div class="lesson" id="l6-1"><div class="lesson-head" onclick="toggleLesson('l6-1')"><h3>6.1 Géométrie — Formules essentielles</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Aires</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Figure</th><th>Formule</th></tr>
+<tr><td>Rectangle</td><td>A = L × l</td></tr>
+<tr><td>Triangle</td><td>A = (b × h) / 2</td></tr>
+<tr><td>Cercle</td><td>A = π × r²</td></tr>
+<tr><td>Trapèze</td><td>A = (B + b) × h / 2</td></tr>
+<tr><td>Parallélogramme</td><td>A = b × h</td></tr>
+</table></div>
+
+<h4>Volumes</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Solide</th><th>Formule</th></tr>
+<tr><td>Cube</td><td>V = a³</td></tr>
+<tr><td>Pavé droit</td><td>V = L × l × h</td></tr>
+<tr><td>Cylindre</td><td>V = π × r² × h</td></tr>
+<tr><td>Sphère</td><td>V = (4/3) × π × r³</td></tr>
+<tr><td>Cône</td><td>V = (1/3) × π × r² × h</td></tr>
+<tr><td>Pyramide</td><td>V = (1/3) × B × h</td></tr>
+</table></div>
+
+<h4>Périmètres</h4>
+<p>Cercle : <span class="ex">P = 2 × π × r</span></p>
+<p>Rectangle : <span class="ex">P = 2(L + l)</span></p>
+</div></div>
+
+<div class="lesson" id="l6-2"><div class="lesson-head" onclick="toggleLesson('l6-2')"><h3>6.2 Pythagore & Trigonométrie</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Théorème de Pythagore (triangle rectangle)</h4>
+<div class="formula">a² + b² = c² (c = hypoténuse)</div>
+<p><span class="ex">Côtés 3 et 4 → hypoténuse = √(9+16) = √25 = <em>5</em></span></p>
+
+<h4>Triplets pythagoriciens à connaître</h4>
+<p><span class="ex">(3, 4, 5) | (5, 12, 13) | (6, 8, 10) | (8, 15, 17)</span></p>
+
+<h4>Théorème de Thalès</h4>
+<div class="formula">Si deux droites sont parallèles coupant deux sécantes : les longueurs sont proportionnelles.</div>
+<p><span class="ex">AB/AD = AC/AE = BC/DE</span></p>
+
+<h4>Trigonométrie (SOH-CAH-TOA)</h4>
+<div class="formula">sin(α) = Opposé / Hypoténuse | cos(α) = Adjacent / Hypoténuse | tan(α) = Opposé / Adjacent</div>
+
+<div class="tip">
+<div class="tip-title">💡 VALEURS À CONNAÎTRE</div>
+<p>sin(30°) = 1/2 | cos(30°) = √3/2 | tan(30°) = √3/3</p>
+<p>sin(45°) = √2/2 | cos(45°) = √2/2 | tan(45°) = 1</p>
+<p>sin(60°) = √3/2 | cos(60°) = 1/2 | tan(60°) = √3</p>
+</div>
+</div></div>
+
+<div class="lesson" id="l6-3"><div class="lesson-head" onclick="toggleLesson('l6-3')"><h3>6.3 Statistiques</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<h4>Les indicateurs</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Indicateur</th><th>Formule / Définition</th></tr>
+<tr><td>Moyenne</td><td>Somme des valeurs / Nombre de valeurs</td></tr>
+<tr><td>Médiane</td><td>Valeur qui sépare la série en deux (50% au-dessus, 50% en-dessous)</td></tr>
+<tr><td>Mode</td><td>Valeur la plus fréquente</td></tr>
+<tr><td>Étendue</td><td>Max − Min</td></tr>
+</table></div>
+
+<h4>Moyenne pondérée</h4>
+<div class="formula">Moyenne = Σ(valeur × coefficient) / Σ(coefficients)</div>
+<p><span class="ex">Notes : 12 (coeff 3), 15 (coeff 2), 8 (coeff 1)</span></p>
+<p><span class="ex">Moyenne = (12×3 + 15×2 + 8×1) / (3+2+1) = (36+30+8)/6 = 74/6 ≈ <em>12.33</em></span></p>
+
+<div class="trap">
+<div class="trap-title">⚠️ PIÈGE N°10 — MOYENNE DE MOYENNES</div>
+<p>La moyenne de deux moyennes n'est PAS la moyenne globale si les effectifs sont différents.</p>
+<p><span class="ex">Groupe A : 20 élèves, moyenne 14 | Groupe B : 10 élèves, moyenne 11</span></p>
+<p><span class="ex">Moyenne globale ≠ (14+11)/2 = 12.5</span></p>
+<p><span class="ex">Moyenne globale = (20×14 + 10×11) / 30 = (280+110)/30 = <em>13</em></span></p>
+</div>
+</div></div>
+
+<!-- QUIZ FINAL -->
+<div class="lesson" id="l6-quiz"><div class="lesson-head" onclick="toggleLesson('l6-quiz')"><h3>🧪 Quiz Final — 10 Questions type SESAME (tous blocs)</h3><span class="arrow">▼</span></div><div class="lesson-body">
+<div class="quiz-box"><h4>Simule les conditions : 2 minutes par question max</h4>
+
+<div class="quiz-q" data-correct="B"><p>1. Un prix augmente de 50% puis baisse de 50%. Le prix final par rapport au départ est :</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) Identique</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 25% de moins</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 25% de plus</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 10% de moins</span></div><div class="explanation">✅ 1.50 × 0.50 = 0.75 → le prix final est 75% du prix initial → perte de 25%.</div></div>
+
+<div class="quiz-q" data-correct="C"><p>2. Si 2ˣ = 32, quelle est la valeur de x ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 4</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 6</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 5</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 3</span></div><div class="explanation">✅ 2⁵ = 32 → x = 5.</div></div>
+
+<div class="quiz-q" data-correct="A"><p>3. PGCD(36, 48) = ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 12</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 6</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 24</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 8</span></div><div class="explanation">✅ 36 = 2² × 3² | 48 = 2⁴ × 3 → PGCD = 2² × 3 = 12.</div></div>
+
+<div class="quiz-q" data-correct="D"><p>4. Suite arithmétique : u₁ = 5, r = 3. Que vaut u₂₀ ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 65</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 60</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 63</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 62</span></div><div class="explanation">✅ u₂₀ = u₁ + (20−1) × r = 5 + 19 × 3 = 5 + 57 = 62.</div></div>
+
+<div class="quiz-q" data-correct="B"><p>5. Aire d'un cercle de rayon 7 cm (prendre π ≈ 22/7) ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 44 cm²</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 154 cm²</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 147 cm²</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 308 cm²</span></div><div class="explanation">✅ A = π × r² = (22/7) × 49 = 22 × 7 = 154 cm².</div></div>
+
+<div class="quiz-q" data-correct="C"><p>6. Combien de façons de former un comité de 3 personnes parmi 7 ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 21</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 210</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 35</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 42</span></div><div class="explanation">✅ Comité = combinaison (ordre ne compte pas). C(7,3) = 7!/(3!×4!) = (7×6×5)/(3×2×1) = 35.</div></div>
+
+<div class="quiz-q" data-correct="A"><p>7. −3x + 9 ≥ 0. Quelle est la solution ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) x ≤ 3</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) x ≥ 3</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) x < −3</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) x > 3</span></div><div class="explanation">✅ −3x ≥ −9 → on divise par −3 → on INVERSE → x ≤ 3.</div></div>
+
+<div class="quiz-q" data-correct="D"><p>8. 3/4 + 2/5 = ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 5/9</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 5/20</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 1</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 23/20</span></div><div class="explanation">✅ 3/4 + 2/5 = 15/20 + 8/20 = 23/20 (= 1.15).</div></div>
+
+<div class="quiz-q" data-correct="B"><p>9. Un triangle rectangle a des côtés 6 et 8. L'hypoténuse vaut :</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 14</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 10</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 12</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 9</span></div><div class="explanation">✅ √(6² + 8²) = √(36 + 64) = √100 = 10. Triplet (6, 8, 10) = double de (3, 4, 5).</div></div>
+
+<div class="quiz-q" data-correct="C"><p>10. Deux groupes : 30 élèves (moyenne 12) et 20 élèves (moyenne 18). Moyenne globale ?</p><div class="options"><span class="opt" data-val="A" onclick="checkQuiz(this)">A) 15</span><span class="opt" data-val="B" onclick="checkQuiz(this)">B) 13.5</span><span class="opt" data-val="C" onclick="checkQuiz(this)">C) 14.4</span><span class="opt" data-val="D" onclick="checkQuiz(this)">D) 16</span></div><div class="explanation">✅ (30×12 + 20×18) / 50 = (360 + 360) / 50 = 720/50 = 14.4. PAS la moyenne des moyennes (15) !</div></div>
+</div>
+</div></div>
+
+<div class="nav-buttons"><button class="nav-btn" onclick="showSection('bloc5')">← Bloc 5</button><button class="nav-btn primary" onclick="showSection('home')">Retour à l'accueil</button></div>
+</div>
+
+<script>
+function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');document.getElementById('nav-'+id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});const map={home:0,bloc1:16,bloc2:33,bloc3:50,bloc4:66,bloc5:83,bloc6:100};document.getElementById('progressBar').style.width=(map[id]||0)+'%'}
+function toggleLesson(id){document.getElementById(id).classList.toggle('open')}
+function checkQuiz(el){const q=el.closest('.quiz-q');if(q.classList.contains('answered'))return;q.classList.add('answered');const correct=q.dataset.correct;const val=el.dataset.val;if(val===correct){el.classList.add('correct')}else{el.classList.add('wrong');q.querySelector(`.opt[data-val="${correct}"]`).classList.add('correct')}q.querySelectorAll('.opt').forEach(o=>{if(!o.classList.contains('correct')&&!o.classList.contains('wrong'))o.classList.add('disabled')});q.querySelector('.explanation').style.display='block'}
+</script>
+</body>
+</html>
